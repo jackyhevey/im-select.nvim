@@ -6,6 +6,11 @@ local function all_trim(s)
     return s:match("^%s*(.-)%s*$")
 end
 
+local function script_path()
+    local str = debug.getinfo(2, "S").source:sub(2)
+    return str:match("(.*/)")
+end
+
 local function determine_os()
     if vim.fn.has("macunix") == 1 then
         return "macOS"
@@ -55,7 +60,7 @@ local C = {
 local function set_default_config()
     local current_os = determine_os()
     if current_os == "macOS" then
-        C.default_command = { "macism" }
+        C.default_command = { script_path .. "../bin/macsim" .. "-" .. vim.loop.os_uname().machine }
         C.default_method_selected = "com.apple.keylayout.ABC"
     elseif current_os == "Windows" or current_os == "WSL" then
         -- WSL share same config with Windows
