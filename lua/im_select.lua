@@ -60,7 +60,8 @@ local C = {
 local function set_default_config()
     local current_os = determine_os()
     if current_os == "macOS" then
-        C.default_command = { script_path .. "../bin/macsim" .. "-" .. vim.loop.os_uname().machine }
+        C.default_command = { script_path() .. "/bin/macism" .. "-" .. vim.loop.os_uname().machine }
+        print(C.default_command)
         C.default_method_selected = "com.apple.keylayout.ABC"
     elseif current_os == "Windows" or current_os == "WSL" then
         -- WSL share same config with Windows
