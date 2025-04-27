@@ -62,10 +62,10 @@ local function set_default_config()
     if current_os == "macOS" then
         C.default_command = { script_path() .. "/bin/macism" .. "-" .. vim.loop.os_uname().machine }
         C.default_method_selected = "com.apple.keylayout.ABC"
-        if vim.fn.executable("hs") == 1 then
-            C.default_command = { "hs" }
-            C.default_method_selected = "hs.keycodes.currentSourceID('com.apple.keylayout.ABC')"
-        end
+        -- if vim.fn.executable("hs") == 1 and vim.fn.system({ "hs", "-c", "hs.ipc.cliStatus('/opt/homebrew/')" }) then
+        --     C.default_command = { "hs" }
+        --     C.default_method_selected = "hs.keycodes.currentSourceID('com.apple.keylayout.ABC')"
+        -- end
     elseif current_os == "Windows" or current_os == "WSL" then
         -- WSL share same config with Windows
         C.default_command = { "im-select.exe" }
@@ -152,9 +152,9 @@ local function change_im_select(cmd, method)
             method = "-o"
         end
     end
-    if cmd[1]:find("hs", 1, true) then
-        table.insert(args, "-c")
-    end
+    -- if cmd[1]:find("hs", 1, true) then
+    --     table.insert(args, "-c")
+    -- end
     table.insert(args, method)
 
     local handle
